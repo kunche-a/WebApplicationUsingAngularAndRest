@@ -1,0 +1,20 @@
+
+<div class="page-header" ng-init="viewProjCtrl.init()">
+{{viewProjCtrl.messageDash}}<br/>
+
+	<table>
+	<tr><td ng-repeat="category in viewProjCtrl.categories">
+			<a ng-click="viewProjCtrl.viewThisCategoryProjects({category})">{{ category.categoryName }}</a></td></tr>
+		
+	
+		<tr ng-repeat="project in viewProjCtrl.projects">
+			<td>{{ project.name }}</td>
+			<td>{{project.desc}}</td>
+		
+			<td><a ng-click="viewProjCtrl.deleteThisProject({project})"
+					class="btn btn-primary"> Delete Project</a></td>
+					
+		</tr>
+		
+	</table>
+</div>

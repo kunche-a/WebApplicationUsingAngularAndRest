@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2017 11:34:47 PM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="neu.edu.entity.PaymentInfo" table="payment_info" catalog="mydb" optimistic-lock="version">
+        <composite-id name="id" class="neu.edu.entity.PaymentInfoId">
+            <key-property name="userId" type="int">
+                <column name="user_id" />
+            </key-property>
+            <key-property name="cardNumber" type="int">
+                <column name="card_number" />
+            </key-property>
+        </composite-id>
+        <property name="cardYear" type="java.lang.Integer">
+            <column name="card_year" />
+        </property>
+        <property name="cardMonth" type="java.lang.Integer">
+            <column name="card_month" />
+        </property>
+        <property name="cardCvv" type="java.lang.Integer">
+            <column name="card_cvv" />
+        </property>
+    </class>
+</hibernate-mapping>

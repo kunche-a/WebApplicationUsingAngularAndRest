@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2017 11:34:47 PM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="neu.edu.entity.ProjectCategories" table="project_categories" catalog="mydb" optimistic-lock="version">
+        <id name="categoryId" type="java.lang.Integer">
+            <column name="category_id" />
+            <generator class="identity" />
+        </id>
+        <property name="categoryName" type="string">
+            <column name="category_name" length="45" unique="true" />
+        </property>
+        <property name="categoryDesc" type="string">
+            <column name="category_desc" length="100" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

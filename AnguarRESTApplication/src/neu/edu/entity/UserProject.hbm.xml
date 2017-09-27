@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 27, 2017 11:34:47 PM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="neu.edu.entity.UserProject" table="user_project" catalog="mydb" optimistic-lock="version">
+        <id name="projectId" type="java.lang.Integer">
+            <column name="project_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userAccount" class="neu.edu.entity.UserAccount" fetch="select">
+            <column name="user_id" />
+        </many-to-one>
+        <property name="projectName" type="string">
+            <column name="project_name" length="45" unique="true" />
+        </property>
+        <property name="categoryId" type="java.lang.Integer">
+            <column name="category_id" />
+        </property>
+        <property name="projectDesc" type="string">
+            <column name="project_desc" length="45" />
+        </property>
+        <property name="endDate" type="string">
+            <column name="end_date" length="45" />
+        </property>
+        <property name="projectLocation" type="string">
+            <column name="project_location" length="45" />
+        </property>
+        <property name="projectPrice" type="java.lang.Float">
+            <column name="project_price" precision="12" scale="0" />
+        </property>
+        <property name="projectPicture" type="string">
+            <column name="project_picture" length="45" />
+        </property>
+        <property name="startDate" type="string">
+            <column name="start_date" length="45" />
+        </property>
+        <property name="projectStatus" type="string">
+            <column name="project_status" length="45" />
+        </property>
+        <set name="userProjectServiceses" table="user_project_services" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="project_id" />
+            </key>
+            <one-to-many class="neu.edu.entity.UserProjectServices" />
+        </set>
+    </class>
+</hibernate-mapping>

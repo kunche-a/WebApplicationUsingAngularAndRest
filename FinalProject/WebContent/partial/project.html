@@ -1,0 +1,20 @@
+<div>
+		<form class="form-horizontal">
+
+<h2><input type="text" ng-model="projectCtrl.credentials.categoryName" name="categoryName"   required><br /></h2>
+<h4>(Category Id: <input type="text" name="categoryId"  ng-model="projectCtrl.credentials.categoryId" readonly>)<br/></h4>
+<h4>Status: <input type="text" name="categoryId"  ng-model="projectCtrl.credentials.status" readonly><br /></h4>
+<p>Description: <input type="text" name="categoryId"  ng-model="projectCtrl.credentials.categoryDesc" required><br /></p>
+</div>
+<div class="form-group">
+			<div class=" col-sm-2">
+				<button type="submit" ng-click="projectCtrl.updateCategory()"
+					class="btn btn-default">Update</button>
+			</div>
+		
+			<div class="col-sm-2">
+				<button type="submit" ng-click="projectCtrl.deleteCategory()"
+					class="btn btn-default">Delete</button>
+			</div>
+		</div>
+</form>

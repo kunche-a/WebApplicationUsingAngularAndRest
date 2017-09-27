@@ -1,0 +1,621 @@
+<style>
+input.ng-invalid {
+	background:;
+	border: 2px red solid;
+}
+</style>
+<div class='container'>
+	<div class='panel panel-primary dialog-panel'>
+		<div class='panel-heading'>
+			<h5>Start A Project</h5>
+		</div>
+		<div class='panel-body'>
+			<form class='form-horizontal' role='form' name="myForm">
+				<div class="form-group">
+
+					<div ng-show="regCtrl.error" align="center"
+						class="col-sm-offset-2 col-sm-2 alert alert-danger">{{startAProjectCtrl.message}}</div>
+					<label class='control-label col-md-4'
+						for='id_category'>Choose a Category!</label>
+					<div class='col-md-2' ng-init="startAProjectCtrl.init()">
+						<div class='form-group internal'>
+							<select class='form-control' id='id_category'
+								ng-model="startAProjectCtrl.projectDetails.categoryId">
+								<option ng-repeat="category in startAProjectCtrl.categories"
+									value="{{category.categoryId}}" selected>{{category.categoryName}}</option>
+
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class='control-label col-md-4' for='id_name'>Project
+						Name</label>
+					<div class='col-md-8'>
+
+						<div class='col-md-3 indent-small'>
+							<div class='form-group internal'>
+								<input class='form-control' id='id_name'
+									ng-model="startAProjectCtrl.projectDetails.name"
+									placeholder='Project Name' type='text' required>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class='control-label col-md-4' for='id_desc'>Project
+						Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_desc'
+									placeholder='Description'
+									ng-model="startAProjectCtrl.projectDetails.desc" type='text' required>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class='control-label col-md-4'
+						for='id_location'>Country in which this project will be available!</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<select class='form-control' id='id_location'
+									ng-model="startAProjectCtrl.projectDetails.location"
+									ng-init="startAProjectCtrl.projectDetails.location ='USA'">
+									<option selected="selected">USA</option>
+									<option>Canada</option>
+									<option>UK</option>
+									<option>Australia</option>
+									<option>India</option>
+									<option>Others</option>
+
+								</select>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class='control-label col-md-4'
+						for='id_price'>Goal Amount</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_price' placeholder='10,000'
+									ng-model="startAProjectCtrl.projectDetails.price" type='number' required>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class='form-group'>
+					<label class='control-label col-md-4'
+						for='id_endDate'>End Date</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_endDate'
+									ng-model="startAProjectCtrl.projectDetails.endDate" type='date' min="2017-04-28"required>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label class='control-label col-md-4'
+						for='id_noOfServices'>Choose number of services for this
+						project. Atleast 2!!</label>
+					<div class='col-md-2'>
+						<div class='form-group internal'>
+							<select class='form-control' id='id_noOfServices'
+								ng-model="startAProjectCtrl.serviceDetails.noOfServices"
+								ng-change="onNumChange(startAProjectCtrl.serviceDetails.noOfServices)"
+								ng-init="startAProjectCtrl.serviceDetails.noOfServices='2'">
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class='form-group' id="serv1">
+					<label class='control-label col-md-4'
+						for='id_serv1Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv1Name"
+									type='text' required>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv1Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv1Desc"
+									type='text' required>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv1Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Price' placeholder='7890'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv1Price"
+									type='number' required>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4 '
+						for='id_serv2Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv2Name"
+									type='text' required>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv2Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv2Desc"
+									type='text' required>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4 '
+						for='id_serv2Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv2Price"
+									type='number' required>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='form-group' id="serv2">
+					<label class='control-label col-md-4'
+						for='id_serv1Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv1Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv1Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv1Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4 '
+						for='id_serv1Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Price' placeholder='7890'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv1Price"
+									type='number' >
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4'
+						for='id_serv2Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv2Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv2Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv2Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv2Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Price' placeholder='3443'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv2Price"
+									type='number' >
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4'
+						for='id_serv3Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv3Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv3Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv3Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv3Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv3Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='form-group' id="serv3">
+					<label class='control-label col-md-4'
+						for='id_serv1Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv1Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv1Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv1Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv1Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv1Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4'
+						for='id_serv2Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv2Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv2Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv2Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv2Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv2Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4 '
+						for='id_serv3Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv3Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv3Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv3Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv3Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv3Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4'
+						for='id_serv4Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv4Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv4Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv4Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv4Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv4Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv4Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv4Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv4Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='form-group' id="serv4">
+					<label class='control-label col-md-4'
+						for='id_serv1Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv1Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv1Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv1Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv1Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv1Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv1Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4 '
+						for='id_serv2Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Name' placeholder=''Service Name
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv2Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4 '
+						for='id_serv2Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv2Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4 '
+						for='id_serv2Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv2Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv2Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4'
+						for='id_serv3Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv3Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv3Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv3Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv3Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv3Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv3Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4'
+						for='id_serv4Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv4Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv4Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv4Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv4Desc' placeholder='Service Description'
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv4Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv4Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv4Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv4Price"
+									type='number'>
+							</div>
+						</div>
+					</div>
+					<hr><br/>
+					<label class='control-label col-md-4'
+						for='id_serv5Name'>Service Name</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv5Name' placeholder='Service Name'
+									ng-model="startAProjectCtrl.serviceDetails.serviceName.serv5Name"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv5Desc'>Service Description</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv5Desc' placeholder=''
+									ng-model="startAProjectCtrl.serviceDetails.serviceDesc.serv5Desc"
+									type='text'>
+							</div>
+						</div>
+					</div>
+					<label class='control-label col-md-4'
+						for='id_serv5Price'>Service Price</label>
+					<div class='col-md-6'>
+						<div class='form-group'>
+							<div class='col-md-11'>
+								<input class='form-control' id='id_serv5Price' placeholder='Service Price'
+									ng-model="startAProjectCtrl.serviceDetails.servicePrice.serv5Price"
+									type='number' >
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class='form-group'>
+					<div class='col-md-offset-4 col-md-3'>
+						<button class='btn btn-primary' ng-disabled="myForm.$invalid"
+							ng-click="startAProjectCtrl.submitProject()" type='submit'>Start
+							a Project</button>
+					</div>
+					<div class='col-md-3'>
+						<button class='btn btn-danger'
+							ng-click="startAProjectCtrl.cancel()" style='float: right'
+							type='submit'>Cancel</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
